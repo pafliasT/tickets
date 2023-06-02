@@ -1,0 +1,123 @@
+<mvc:View controllerName="project1.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <App id="app">
+        <pages>
+            <Page showHeader="false" showFooter="false">
+                <content>
+                    <IconTabBar>
+                        <items>
+                            <IconTabFilter key="info" text="Fiori Training Academy">
+                                <Table inset="false" items="{path: '/ZC_ITINERARY'}" alternateRowColors="true">
+                                    <headerToolbar>
+                                        <OverflowToolbar>
+                                            <content>
+                                                <Title text="Ticket Iteneraries" level="H2" textAlign="Center" />
+                                            </content>
+                                        </OverflowToolbar>
+                                    </headerToolbar>
+                                    <columns>
+                                        <Column>
+                                            <Text text="Carrier ID" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Flight Connection ID" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Flight Date" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Booking ID" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Ticket Number" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Flight Number" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Booking Date" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Baggage Allowance" />
+                                        </Column>
+                                        
+                                        <Column>
+                                            <Text text="Agency Name" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Customer Name" />
+                                        </Column>
+
+                                        <Column>
+                                            <Text text="Flight Connection" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Country From" />
+                                        </Column>
+
+                                        <Column>
+                                            <Text text="Country To" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="City From" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="City To" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Airport To" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Airport From" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Departure Time" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Arrival Time" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Flight Duration" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Airline Name" />
+                                        </Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem vAlign="Middle">
+                                            <cells>
+                                                <Text text="{CarrierId}" />
+                                                <Text text="{FlConnId}" />
+                                                <Text text="{path: 'FlightDate', formatter: '.formatDate'}" />
+                                                <Text text="{BookingId}" />
+                                                <Text text="{TickNum}" />
+                                                <Text text="{FlightNum}" />
+                                                <Text text="{path: 'BookingDate', formatter: '.formatDate'}" />
+                                                <Text text="{path: 'BaggAllow', formatter: '.formatBaggageAllowance'}" />
+                                               
+                                                <Text text="{AgencyName}" />
+                                                <Text text="{CustName}" />
+                                                <Text text="{FlConn}" />
+                                                <Text text="{CouFrom}" />
+                                                <Text text="{CouTo}" />
+                                                <Text text="{path: 'CityFrom', formatter: '.formatCityName'}" />
+                                                <Text text="{path: 'CityTo', formatter: '.formatCityName'}" />
+                                                <Text text="{AirTo}" />
+                                                <Text text="{AirFrom}" />
+                                                <Text text="{path: 'DepTime', formatter: '.formatTime'}" />
+                                                <Text text="{path: 'ArrTime', formatter: '.formatTime'}" />
+                                                <Text text="{path: 'FlDur', formatter: '.formatFlightDuration'}" />
+                                                <Text text="{AirlineName}" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </IconTabFilter>
+                        </items>
+                    </IconTabBar>
+                </content>
+            </Page>
+        </pages>
+    </App>
+</mvc:View>
