@@ -9,17 +9,16 @@
         "sapui5"
     ],
     "main": "webapp/index.html",
-    "dependencies": {},
     "devDependencies": {
-        "@ui5/cli": "^3.0.0",
-        "@sap/ux-ui5-tooling": "1",
-        "eslint": "7.32.0",
-        "@sap/eslint-plugin-ui5-jsdocs": "2.0.5",
-        "@sapui5/ts-types": "~1.108.0",
         "@sap-ux/ui5-middleware-fe-mockserver": "2",
+        "@sap/eslint-plugin-ui5-jsdocs": "2.0.5",
         "@sap/ui5-builder-webide-extension": "^1.1.8",
-        "ui5-task-zipper": "^0.5.0",
-        "mbt": "^1.2.18"
+        "@sap/ux-ui5-tooling": "^1.10.0",
+        "@sapui5/ts-types": "~1.108.0",
+        "@ui5/cli": "^3.2.0",
+        "eslint": "7.32.0",
+        "mbt": "^1.2.18",
+        "ui5-task-zipper": "^0.5.0"
     },
     "scripts": {
         "start": "fiori run --open \"test/flpSandbox.html?sap-client=100&sap-ui-xx-viewCache=false#project1-display\"",
@@ -43,5 +42,8 @@
             "ui5-task-zipper",
             "mbt"
         ]
+    },
+    "dependencies": {
+        "mammoth": "^1.6.0"
     }
 }

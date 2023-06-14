@@ -9,7 +9,7 @@
                     <IconTabBar>
                         <items>
                             <IconTabFilter key="info" text="Fiori Training Academy">
-                                <Table id="tableId" inset="false" items="{path: '/ZC_ITINERARY'}" alternateRowColors="true">
+                                <Table id="tableId" inset="false" items="{path: '/ZC_ITINERARY'}" alternateRowColors="true" >
                                     <headerToolbar>
                                         <OverflowToolbar>
                                             <content>
@@ -18,7 +18,7 @@
                                                 <Select id="filterSelect" change="onFilterChange">
                                                     <items>
                                                         <core:Item key="all" text="All" />
-                                                        <core:Item key="CarrierId" text="Carrier ID" />
+                                                        <core:Item key="TickNum" text="Ticket Number" />
                                                         <core:Item key="FlightNum" text="Flight Number" />
                                                         <core:Item key="CustName" text="Customer Name" />
                                                     </items>
@@ -84,7 +84,7 @@
                                         </Column>
                                     </columns>
                                     <items>
-                                        <ColumnListItem vAlign="Middle">
+                                        <ColumnListItem vAlign="Middle" type="Navigation" press="onListItemPress">
                                             <cells>
                                                 <Text text="{CarrierId}" />
                                                 <Text text="{FlightNum}" />

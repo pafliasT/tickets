@@ -1,0 +1,26 @@
+<mvc:View controllerName="project1.controller.View2"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form">
+    <Page navButtonPress="onNavBack" showNavButton="true" title="Details" titleAlignment="Center">
+        <content>
+            <ObjectHeader title="Name: {/CustName}" number="Ticket Number: {/TickNum}" class="sapUiResponsiveMargin">
+                <attributes>
+                    <ObjectAttribute title="Flight Number" text="{/FlightNum}" />
+                    <ObjectAttribute title="Flight Date" text="{path: '/FlightDate', formatter: '.formatDate'}" />
+                    <ObjectAttribute title="From" text="{path: '/CityFrom', formatter: '.formatCityName'}" />
+                    <ObjectAttribute title="To" text="{path: '/CityTo', formatter: '.formatCityName'}" />
+                    <ObjectAttribute title="Departure" text="{path: '/DepTime', formatter: '.formatTime'}" />
+                    <ObjectAttribute title="Arrival" text="{path: '/ArrTime', formatter: '.formatTime'}" />
+                    <ObjectAttribute title="Duration" text="{path: '/FlDur', formatter: '.formatFlightDuration'}" />
+                </attributes>
+            </ObjectHeader>
+        </content>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer/>
+                <Button text="Print" icon='sap-icon://print' type="Accept" press="onPrint"/>
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>
