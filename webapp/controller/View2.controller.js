@@ -1,125 +1,142 @@
 // @ts-nocheck
-
 sap.ui.define(
   [
-    "sap/ui/core/mvc/Controller",
-    "sap/ui/core/routing/History",
-    "sap/ui/core/format/DateFormat",
-    "../assets/jspdf",
-    "../assets/FileSaver",
-    "../assets/addImage",
+    "sap/ui/core/mvc/Controller", // Import Controller from SAP UI5
+    "sap/ui/core/routing/History", // Import History for navigation
+    "sap/ui/core/format/DateFormat", // Import DateFormat for date formatting
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
-   * @param {typeof sap.ui.core.routing.History} History
+   * @param {typeof sap.ui.core.mvc.History} History
    * @param {typeof sap.ui.core.format.DateFormat} DateFormat
    */
   function (Controller, History, DateFormat) {
     "use strict";
 
     return Controller.extend("project1.controller.View2", {
+      // This function is called when the controller is initialized
       onInit: function () {
-        // Get the shared model from the owner component and set it as the view's model
+        // Get the shared model from the owner component and set it to the view
         var oSharedModel = this.getOwnerComponent().getModel("shared");
         this.getView().setModel(oSharedModel);
       },
 
+      // This function is called when the navigation back button is pressed
       onNavBack: function () {
-        // Get the previous hash from the history and navigate back
+        // Get the previous hash from the history
         let oHistory = History.getInstance();
         let sPreviousHash = oHistory.getPreviousHash();
 
+        // If there is a previous hash, go back in the browser history
         if (sPreviousHash !== undefined) {
-          // If a previous hash exists, go back in the browser history
           window.history.go(-1);
         } else {
-          // If no previous hash, navigate to View1
+          // Otherwise, navigate to the View1 route
           let oRouter = this.getOwnerComponent().getRouter();
           oRouter.navTo("View1", {}, true);
         }
       },
 
+      // This function formats a date value
       formatDate: function (value) {
-        // Formatter function to format the date
         if (value) {
-          // Format the date using the specified pattern
+          // Create a DateFormat instance with a specific pattern
           const oDateFormat = DateFormat.getDateInstance({
             pattern: "dd MMM yy",
           });
+          // Format the date and return it
           return oDateFormat.format(new Date(value));
         }
         return value;
       },
 
+      // This function formats a flight duration value
       formatFlightDuration: function (value) {
-        // Formatter function to format the flight duration
         if (value) {
           // Calculate hours and minutes from the duration value
           const hours = Math.floor(value / 60);
           const minutes = value % 60;
+          // Return the formatted duration
           return `${hours}hr ${minutes}min`;
         }
         return value;
       },
 
+      // This function formats a time value
       formatTime: function (value) {
-        // Formatter function to format the time
         if (value) {
-          // Format the time using the "short" style
+          // Create a DateFormat instance with a short style
           const oDateFormat = DateFormat.getTimeInstance({ style: "short" });
+          // Format the time and return it
           const time = new Date(value.ms);
           return oDateFormat.format(time);
         }
         return value;
       },
 
-      formatCityName: (value) => {
-        // Formatter function to format the city name
+      // This function formats a city name value
+      formatCityName: function (value) {
         if (value) {
-          // Capitalize each word in the city name
+          // Split the city name into words
           const words = value.split(" ");
+          // Capitalize each word
           const capitalizedWords = words.map((word) => {
             return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
           });
+          // Join the words back together and return the result
           return capitalizedWords.join(" ");
         }
         return value;
       },
 
-      onPrint: function () {
-        const oModel = this.getView().getModel();
-        const data = oModel.getData();
+      // This function is called when the print button is pressed
+      onPrint: async function () {
+        // Get the data from the view's model
+        const data = this.getView().getModel().getData();
+        // Define the path to the .docx template
+        const templatePath = "../assets/bp.docx";
 
-        // Create a new jsPDF instance with custom page size and orientation
-        const doc = new jsPDF({
-          orientation: "landscape",
-          unit: "mm",
-          format: [100, 210], // Custom size: width = 100mm, height = 210mm
-        });
+        try {
+          // Use the Fetch API to get the .docx file as an array buffer
+          const response = await fetch(templatePath);
+          const arrayBuffer = await response.arrayBuffer();
 
-        // Set the background color
-        doc.setFillColor(173, 216, 230); // Light blue color (R: 173, G: 216, B: 230)
-        doc.rect(0, 0, 210, 100, "F"); // Set the dimensions of the rectangle
+          // Load the .docx file data into PizZip
+          const zip = new PizZip(arrayBuffer);
 
-        // Set up the content of the PDF
-        doc.setFontSize(18);
-        doc.text("Boarding Pass", 10, 10);
+          // Load the zip file data into docxtemplater
+          const doc = new docxtemplater().loadZip(zip);
 
-        doc.setFontSize(14);
-        doc.text("Flight Details", 10, 20);
-        doc.text("Passenger Name: " + data.CustName, 10, 30);
-        doc.text("Ticket Number: " + data.TickNum, 10, 40);
-        doc.text("Flight Date: " + this.formatDate(data.FlightDate), 10, 50);
-        doc.text("From: " + this.formatCityName(data.CityFrom), 10, 60);
-        doc.text("To: " + this.formatCityName(data.CityTo), 10, 70);
-        doc.text("Flight Number: " + data.FlConn, 130, 30);
-        doc.text("Departure: " + this.formatTime(data.DepTime), 130, 40);
-        doc.text("Arrival: " + this.formatTime(data.ArrTime), 130, 50);
-        doc.text("Duration: " + this.formatFlightDuration(data.FlDur), 130, 60);
-       
+          // Set the data for the template
+          doc.setData({
+            Name: data.CustName,
+            FlConn: `KL${data.FlightNum}`,
+            FlightDate: this.formatDate(data.FlightDate),
+            Boarding: "17:35",
+            Gate: "A8",
+            Seat: "F19",
+            CityFrom: this.formatCityName(data.CityFrom),
+            CityTo: this.formatCityName(data.CityTo),
+          });
 
-        // Save the PDF file
-        doc.save("boarding_pass.pdf");
+          // Apply the data to the template
+          doc.render();
+
+          // Generate the output .docx file
+          const output = doc.getZip().generate({ type: "blob" });
+
+          // Create a URL for the .docx file
+          const url = URL.createObjectURL(output);
+
+          // Create a link element with the .docx file URL and simulate a click to start the download
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "output.docx";
+          link.click();
+        } catch (error) {
+          // Handle the error if the request was not successful
+          console.error("Failed to load the .docx file", error);
+        }
       },
     });
   }

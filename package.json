@@ -44,6 +44,8 @@
         ]
     },
     "dependencies": {
-        "mammoth": "^1.6.0"
+        "docxtemplater": "^3.37.11",
+        "mammoth": "^1.6.0",
+        "pizzip": "^3.1.4"
     }
 }
