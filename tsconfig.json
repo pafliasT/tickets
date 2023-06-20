@@ -4,6 +4,7 @@
     "noEmit": true,
     "checkJs": true,
     "allowJs": true,
+    "lib": ["es2018", "dom"],
     "types": [
       "@sapui5/ts-types"
     ]

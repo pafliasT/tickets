@@ -3,14 +3,14 @@ sap.ui.define(
   [
     "sap/ui/core/mvc/Controller", // Import Controller from SAP UI5
     "sap/ui/core/routing/History", // Import History for navigation
-    "sap/ui/core/format/DateFormat", // Import DateFormat for date formatting
+    "../assets/FormatterHelper", // Import DateFormat for date formatting
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    * @param {typeof sap.ui.core.mvc.History} History
    * @param {typeof sap.ui.core.format.DateFormat} DateFormat
    */
-  function (Controller, History, DateFormat) {
+  function (Controller, History, FormatterHelper) {
     "use strict";
 
     return Controller.extend("project1.controller.View2", {
@@ -20,6 +20,10 @@ sap.ui.define(
         var oSharedModel = this.getOwnerComponent().getModel("shared");
         this.getView().setModel(oSharedModel);
       },
+      formatDate: FormatterHelper.formatDate,
+      formatFlightDuration: FormatterHelper.formatFlightDuration,
+      formatTime: FormatterHelper.formatTime,
+      formatCityName: FormatterHelper.formatCityName,
 
       // This function is called when the navigation back button is pressed
       onNavBack: function () {
@@ -37,66 +41,34 @@ sap.ui.define(
         }
       },
 
-      // This function formats a date value
-      formatDate: function (value) {
-        if (value) {
-          // Create a DateFormat instance with a specific pattern
-          const oDateFormat = DateFormat.getDateInstance({
-            pattern: "dd MMM yy",
-          });
-          // Format the date and return it
-          return oDateFormat.format(new Date(value));
-        }
-        return value;
-      },
-
-      // This function formats a flight duration value
-      formatFlightDuration: function (value) {
-        if (value) {
-          // Calculate hours and minutes from the duration value
-          const hours = Math.floor(value / 60);
-          const minutes = value % 60;
-          // Return the formatted duration
-          return `${hours}hr ${minutes}min`;
-        }
-        return value;
-      },
-
-      // This function formats a time value
-      formatTime: function (value) {
-        if (value) {
-          // Create a DateFormat instance with a short style
-          const oDateFormat = DateFormat.getTimeInstance({ style: "short" });
-          // Format the time and return it
-          const time = new Date(value.ms);
-          return oDateFormat.format(time);
-        }
-        return value;
-      },
-
-      // This function formats a city name value
-      formatCityName: function (value) {
-        if (value) {
-          // Split the city name into words
-          const words = value.split(" ");
-          // Capitalize each word
-          const capitalizedWords = words.map((word) => {
-            return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-          });
-          // Join the words back together and return the result
-          return capitalizedWords.join(" ");
-        }
-        return value;
-      },
-
       // This function is called when the print button is pressed
       onPrint: async function () {
         // Get the data from the view's model
         const data = this.getView().getModel().getData();
+
+        // Check if the necessary data is available
+        if (
+          !data ||
+          !data.CustName ||
+          !data.FlightNum ||
+          !data.FlightDate ||
+          !data.CityFrom ||
+          !data.CityTo
+        ) {
+          sap.m.MessageToast.show(
+            "Required data is missing. Please check the details and try again."
+          );
+          return;
+        }
+
         // Define the path to the .docx template
         const templatePath = "../assets/bp.docx";
 
         try {
+          // Show a busy dialog while the document is being generated
+          let busyDialog = new sap.m.BusyDialog();
+          busyDialog.open();
+
           // Use the Fetch API to get the .docx file as an array buffer
           const response = await fetch(templatePath);
           const arrayBuffer = await response.arrayBuffer();
@@ -131,10 +103,21 @@ sap.ui.define(
           // Create a link element with the .docx file URL and simulate a click to start the download
           const link = document.createElement("a");
           link.href = url;
-          link.download = "output.docx";
+          link.download = `${data.CustName}_Flight_${data.FlightNum}.docx`;
           link.click();
+
+          // Close the busy dialog
+          busyDialog.close();
+
+          // Show a success message
+          sap.m.MessageToast.show(
+            "The document was generated and the download will start shortly."
+          );
         } catch (error) {
           // Handle the error if the request was not successful
+          sap.m.MessageToast.show(
+            "An error occurred while generating the document. Please try again later."
+          );
           console.error("Failed to load the .docx file", error);
         }
       },
