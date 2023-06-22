@@ -61,8 +61,11 @@ sap.ui.define(
           return;
         }
 
+        // Get the root path of the app
+        const sRootPath = jQuery.sap.getModulePath("project1");
+
         // Define the path to the .docx template
-        const templatePath = "../assets/bp.docx";
+        const templatePath = sRootPath + "/assets/bp.docx";
 
         try {
           // Show a busy dialog while the document is being generated
