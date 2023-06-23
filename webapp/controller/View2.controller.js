@@ -3,7 +3,9 @@ sap.ui.define(
   [
     "sap/ui/core/mvc/Controller", // Import Controller from SAP UI5
     "sap/ui/core/routing/History", // Import History for navigation
-    "../assets/FormatterHelper", // Import DateFormat for date formatting
+    "../assets/FormatterHelper", // Import FormatterHelper
+    "../assets/pizzip", // Import Pizzip
+    "../assets/docxtemplater", // Import DocXTemplater
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
@@ -67,9 +69,10 @@ sap.ui.define(
         // Define the path to the .docx template
         const templatePath = sRootPath + "/assets/bp.docx";
 
+        let busyDialog;
         try {
           // Show a busy dialog while the document is being generated
-          let busyDialog = new sap.m.BusyDialog();
+          busyDialog = new sap.m.BusyDialog();
           busyDialog.open();
 
           // Use the Fetch API to get the .docx file as an array buffer
@@ -117,6 +120,7 @@ sap.ui.define(
             "The document was generated and the download will start shortly."
           );
         } catch (error) {
+          busyDialog.close()
           // Handle the error if the request was not successful
           sap.m.MessageToast.show(
             "An error occurred while generating the document. Please try again later."

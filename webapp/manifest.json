@@ -7,6 +7,19 @@
     "applicationVersion": {
       "version": "0.0.1"
     },
+    "crossNavigation": {
+      "inbounds": {
+        "intentName": {
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          },
+          "semanticObject": "Tickets",
+          "action": "display",
+          "title": "{{appTitle}"
+        }
+      }
+    },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
     "resources": "resources.json",
@@ -99,12 +112,16 @@
         {
           "name": "View1",
           "pattern": "",
-          "target": ["View1"]
+          "target": [
+            "View1"
+          ]
         },
         {
           "name": "View2",
           "pattern": "View2/{TickNum}",
-          "target": ["View2"]
+          "target": [
+            "View2"
+          ]
         }
       ],
       "targets": {
