@@ -127,7 +127,14 @@
       "targets": {
         "View1": {
           "viewType": "XML",
-          "transition": "slide",
+          "transition": "flip",
+          "viewName": "View1",
+          "viewLevel": 0,
+          "controlAggregation": "pages"
+        },
+        "View1": {
+          "viewType": "XML",
+          "transition": "flip",
           "viewName": "View1",
           "viewLevel": 0,
           "controlAggregation": "pages"

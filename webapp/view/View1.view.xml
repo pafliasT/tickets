@@ -1,56 +1,31 @@
-<mvc:View controllerName="project1.controller.View1"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+<!-- <mvc:View
+    controllerName="project1.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    xmlns:core="sap.ui.core">
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
     <App id="app">
         <pages>
             <Page showHeader="false" showFooter="false">
                 <content>
-                    <IconTabBar>
-                        <items>
-                            <IconTabFilter key="info" text="Fiori Training Academy">
-                                <Table id="tableId" inset="false" items="{path: '/ZC_ITINERARY'}" alternateRowColors="true" >
-                                    <headerToolbar>
-                                        <OverflowToolbar>
-                                            <content>
-                                                <Title text="Ticket Iteneraries" level="H2" textAlign="Center" />
-                                                <ToolbarSpacer/>
-                                                <Select id="filterSelect" change="onFilterChange">
-                                                    <items>
-                                                        <core:Item key="all" text="All" />
-                                                        <core:Item key="TickNum" text="Ticket Number" />
-                                                        <core:Item key="FlightNum" text="Flight Number" />
-                                                        <core:Item key="CustName" text="Customer Name" />
-                                                    </items>
-                                                </Select>
-                                                <SearchField search="onSearch" width="200px" />
-                                            </content>
-                                        </OverflowToolbar>
-                                    </headerToolbar>
+                    <VBox class="sapUiSmallMargin">
+                        <Panel width="100%" >
+                            <headerToolbar>
+                                <Toolbar>
+                                    <Title text="Fiori Training Academy" level="H3" />
+                                    <ToolbarSpacer />
+                                    <SearchField width="50%" search="onSearch" placeholder="Search by Ticket Number, Flight Number, Customer Name..." />
+                                </Toolbar>
+                            </headerToolbar>
+                            <content>
+                                <Table id="tableId" inset="false" items="{path: '/ZC_ITINERARY'}" alternateRowColors="true" class="sapUiResponsiveMargin">
                                     <columns>
-                                        <Column>
-                                            <Text text="Carrier ID" />
-                                        </Column>
-                                        <Column>
-                                            <Text text="Flight Number" />
-                                        </Column>
-                                        <Column>
-                                            <Text text="Flight Date" />
-                                        </Column>
-                                        <Column>
-                                            <Text text="Booking ID" />
-                                        </Column>
                                         <Column>
                                             <Text text="Ticket Number" />
                                         </Column>
                                         <Column>
-                                            <Text text="Booking Date" />
-                                        </Column>
-                                        <Column>
                                             <Text text="Baggage Allowance" />
-                                        </Column>
-                                        <Column>
-                                            <Text text="Agency Name" />
                                         </Column>
                                         <Column>
                                             <Text text="Customer Name" />
@@ -60,18 +35,6 @@
                                         </Column>
                                         <Column>
                                             <Text text="Country To" />
-                                        </Column>
-                                        <Column>
-                                            <Text text="City From" />
-                                        </Column>
-                                        <Column>
-                                            <Text text="City To" />
-                                        </Column>
-                                        <Column>
-                                            <Text text="Airport From" />
-                                        </Column>
-                                        <Column>
-                                            <Text text="Airport To" />
                                         </Column>
                                         <Column>
                                             <Text text="Departure Time" />
@@ -86,21 +49,11 @@
                                     <items>
                                         <ColumnListItem vAlign="Middle" type="Navigation" press="onListItemPress">
                                             <cells>
-                                                <Text text="{CarrierId}" />
-                                                <Text text="{FlightNum}" />
-                                                <Text text="{path: 'FlightDate', formatter: '.formatDate'}" />
-                                                <Text text="{BookingId}" />
                                                 <Text text="{TickNum}" />
-                                                <Text text="{path: 'BookingDate', formatter: '.formatDate'}" />
                                                 <Text text="{path: 'BaggAllow', formatter: '.formatBaggageAllowance'}" />
-                                                <Text text="{AgencyName}" />
                                                 <Text text="{CustName}" />
                                                 <Text text="{CouFrom}" />
                                                 <Text text="{CouTo}" />
-                                                <Text text="{path: 'CityFrom', formatter: '.formatCityName'}" />
-                                                <Text text="{path: 'CityTo', formatter: '.formatCityName'}" />
-                                                <Text text="{AirFrom}" />
-                                                <Text text="{AirTo}" />
                                                 <Text text="{path: 'DepTime', formatter: '.formatTime'}" />
                                                 <Text text="{path: 'ArrTime', formatter: '.formatTime'}" />
                                                 <Text text="{path: 'FlDur', formatter: '.formatFlightDuration'}" />
@@ -108,9 +61,82 @@
                                         </ColumnListItem>
                                     </items>
                                 </Table>
-                            </IconTabFilter>
-                        </items>
-                    </IconTabBar>
+                            </content>
+                        </Panel>
+                    </VBox>
+                </content>
+            </Page>
+        </pages>
+    </App>
+</mvc:View> -->
+
+
+<mvc:View
+    controllerName="project1.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <App id="app">
+        <pages>
+            <Page showHeader="false" showFooter="false">
+                <content>
+                    <FlexBox fitContainer="true" class="sapUiSmallMargin">
+                        <Panel class="sapUiLargeMarginBottom" width="auto">
+                            <headerToolbar>
+                                <Toolbar>
+                                    <Title text="Fiori Training Academy" level="H3" />
+                                    <ToolbarSpacer />
+                                    <SearchField width="25%" search="onSearch" placeholder="Search by Ticket Number, Flight Number, Customer Name..." />
+                                </Toolbar>
+                            </headerToolbar>
+                            <content>
+                                <Table id="tableId" inset="false" items="{path: '/ZC_ITINERARY'}" alternateRowColors="true">
+                                     <columns>
+                                        <Column>
+                                            <Text text="Ticket Number" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Baggage Allowance" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Customer Name" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Country From" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Country To" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Departure Time" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Arrival Time" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Flight Duration" />
+                                        </Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem vAlign="Middle" type="Navigation" press="onListItemPress">
+                                            <cells>
+                                                <Text text="{TickNum}" />
+                                                <Text text="{path: 'BaggAllow', formatter: '.formatBaggageAllowance'}" />
+                                                <Text text="{CustName}" />
+                                                <Text text="{CouFrom}" />
+                                                <Text text="{CouTo}" />
+                                                <Text text="{path: 'DepTime', formatter: '.formatTime'}" />
+                                                <Text text="{path: 'ArrTime', formatter: '.formatTime'}" />
+                                                <Text text="{path: 'FlDur', formatter: '.formatFlightDuration'}" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </content>
+                        </Panel>
+                    </FlexBox>
                 </content>
             </Page>
         </pages>

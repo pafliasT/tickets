@@ -13,18 +13,8 @@ sap.ui.define(
 
     return Controller.extend("project1.controller.View1", {
       // This function is called when the controller is initialized
-      onInit: function () {
-        // Initialize the default filter key
-        this._sFilterKey = "all";
-      },
+      onInit: function () {},
 
-      // This function is called when the filter selection changes
-      onFilterChange: function (event) {
-        // Get the selected key from the event
-        const selectedKey = event.getParameter("selectedItem").getKey();
-        // Update the filter key
-        this._sFilterKey = selectedKey;
-      },
       formatDate: FormatterHelper.formatDate,
       formatFlightDuration: FormatterHelper.formatFlightDuration,
       formatTime: FormatterHelper.formatTime,
@@ -41,21 +31,27 @@ sap.ui.define(
         const binding = table.getBinding("items");
 
         if (searchTerm && binding) {
-          // Create filters based on the search term and filter key
-          const filters = [];
+          // Create filters based on the search term
+          const filters = [
+            new sap.ui.model.Filter(
+              "TickNum",
+              sap.ui.model.FilterOperator.Contains,
+              searchTerm
+            ),
+            new sap.ui.model.Filter(
+              "CustName",
+              sap.ui.model.FilterOperator.Contains,
+              searchTerm
+            ),
+            new sap.ui.model.Filter(
+              "FlightNum",
+              sap.ui.model.FilterOperator.Contains,
+              searchTerm
+            ),
+          ];
 
-          if (this._sFilterKey !== "all") {
-            // Apply the filter for selected key and search term
-            filters.push(
-              new sap.ui.model.Filter(
-                this._sFilterKey,
-                sap.ui.model.FilterOperator.Contains,
-                searchTerm
-              )
-            );
-          }
           // Apply the filters to the table binding
-          binding.filter(filters);
+          binding.filter(new sap.ui.model.Filter(filters, false));
         } else {
           // Clear the filters if there's no search term
           binding.filter([]);

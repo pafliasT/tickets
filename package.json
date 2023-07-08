@@ -44,6 +44,7 @@
         ]
     },
     "dependencies": {
+        "@ui5/webcomponents-icons": "^1.14.5",
         "docxtemplater": "^3.37.11",
         "mammoth": "^1.6.0",
         "pizzip": "^3.1.4"

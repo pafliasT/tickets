@@ -1,25 +1,32 @@
 <mvc:View controllerName="project1.controller.View2"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    xmlns:f="sap.ui.layout.form">
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
     <Page navButtonPress="onNavBack" showNavButton="true" title="Details" titleAlignment="Center">
         <content>
             <VBox class="sapUiSmallMargin">
-                <!-- <HBox justifyContent="Center" alignItems="Center" class="sapUiSmallMarginBottom">
-                    <Icon src="sap-icon://employee"size="5rem" class="sapUiSmallMarginEnd" />
-                    <Title level="H1" text="{/CustName}"/>
-                </HBox> -->
-                <ObjectHeader title="Name: {/CustName}" number="Ticket Number: {/TickNum}" class="sapUiResponsiveMargin">
-                    <attributes>
-                        <ObjectAttribute title="Flight Number" text="{/FlightNum}" />
-                        <ObjectAttribute title="Flight Date" text="{path: '/FlightDate', formatter: '.formatDate'}" />
-                        <ObjectAttribute title="From" text="{path: '/CityFrom', formatter: '.formatCityName'}" />
-                        <ObjectAttribute title="To" text="{path: '/CityTo', formatter: '.formatCityName'}" />
-                        <ObjectAttribute title="Departure" text="{path: '/DepTime', formatter: '.formatTime'}" />
-                        <ObjectAttribute title="Arrival" text="{path: '/ArrTime', formatter: '.formatTime'}" />
-                        <ObjectAttribute title="Duration" text="{path: '/FlDur', formatter: '.formatFlightDuration'}" />
-                    </attributes>
-                </ObjectHeader>
+                <Panel class="sapUiResponsiveMargin" width="auto">
+                    <headerToolbar>
+                        <Toolbar>
+                            <core:Icon src="sap-icon://flight" size="2rem" class="sapUiSmallMarginEnd" />
+                            <Title level="H3" text="Ticket Details" />
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <ObjectHeader title="Name: {/CustName}" number="Ticket Number: {/TickNum}" class="sapUiResponsiveMargin">
+                            <attributes>
+                                <ObjectAttribute title="Flight Number" text="{/FlightNum}" />
+                                <ObjectAttribute title="Flight Date" text="{path: '/FlightDate', formatter: '.formatDate'}" />
+                                <ObjectAttribute title="From" text="{path: '/CityFrom', formatter: '.formatCityName'}" />
+                                <ObjectAttribute title="To" text="{path: '/CityTo', formatter: '.formatCityName'}" />
+                                <ObjectAttribute title="Departure" text="{path: '/DepTime', formatter: '.formatTime'}" />
+                                <ObjectAttribute title="Arrival" text="{path: '/ArrTime', formatter: '.formatTime'}" />
+                                <ObjectAttribute title="Duration" text="{path: '/FlDur', formatter: '.formatFlightDuration'}" />
+                            </attributes>
+                        </ObjectHeader>
+                    </content>
+                </Panel>
             </VBox>
         </content>
         <footer>
