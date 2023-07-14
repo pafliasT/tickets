@@ -1,19 +1,19 @@
 // @ts-nocheck
 sap.ui.define(
   [
-    "sap/ui/core/mvc/Controller", // Import Controller from SAP UI5
+    "sap/ui/core/mvc/Controller",
     "../assets/FormatterHelper",
-    // Import DateFormat for date formatting
+    "sap/ui/core/routing/History", // Import History for navigation
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, FormatterHelper) {
+  function (Controller, FormatterHelper, History) {
     "use strict";
 
     return Controller.extend("project1.controller.View1", {
       // This function is called when the controller is initialized
-      onInit: function () {},
+      onInit: function () { },
 
       formatDate: FormatterHelper.formatDate,
       formatFlightDuration: FormatterHelper.formatFlightDuration,
@@ -79,6 +79,21 @@ sap.ui.define(
         oRouter.navTo("View2", {
           TickNum: sTicketNum,
         });
+      },
+      // This function is called when the navigation back button is pressed
+      onNavBack: function () {
+        // Get the previous hash from the history
+        let oHistory = History.getInstance();
+        let sPreviousHash = oHistory.getPreviousHash();
+
+        // If there is a previous hash, go back in the browser history
+        if (sPreviousHash !== undefined) {
+          window.history.go(-1);
+        } else {
+          // Otherwise, navigate to the View1 route
+          let oRouter = this.getOwnerComponent().getRouter();
+          oRouter.navTo("Home", {}, true);
+        }
       },
     });
   }

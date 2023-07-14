@@ -1,0 +1,25 @@
+<mvc:View
+  controllerName="project1.controller.Home"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  displayBlock="true">
+  
+  <App id="app">
+    <pages>
+      <Page showHeader="false" showFooter="false">
+        <content>
+          <VBox justifyContent="Center" alignItems="Center" class="sapUiSmallMargin" height="100%">
+            <VBox justifyContent="Center" alignItems="Center">
+              <core:Icon src="sap-icon://flight" size="6rem" />
+              <Title text="Flight Itinerary Manager" level="H1" textAlign="Center" />
+              <Text text="Welcome to the Flight Itinerary Manager" textAlign="Center" class="sapUiLargeMarginTopBottom"/>
+              <Button text="Check Flights" press="onGetStarted" class="sapUiLargeMarginTopBottom" />
+            </VBox>
+          </VBox>
+        </content>
+      </Page>
+    </pages>
+  </App>
+  
+</mvc:View>

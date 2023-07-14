@@ -110,8 +110,15 @@
       },
       "routes": [
         {
-          "name": "View1",
+          "name": "Home",
           "pattern": "",
+          "target": [
+            "Home"
+          ]
+        },
+        {
+          "name": "View1",
+          "pattern": "View1",
           "target": [
             "View1"
           ]
@@ -125,10 +132,10 @@
         }
       ],
       "targets": {
-        "View1": {
+        "Home": {
           "viewType": "XML",
           "transition": "flip",
-          "viewName": "View1",
+          "viewName": "Home",
           "viewLevel": 0,
           "controlAggregation": "pages"
         },
@@ -136,20 +143,20 @@
           "viewType": "XML",
           "transition": "flip",
           "viewName": "View1",
-          "viewLevel": 0,
+          "viewLevel": 1,
           "controlAggregation": "pages"
         },
         "View2": {
           "viewType": "XML",
           "transition": "slide",
           "viewName": "View2",
-          "viewLevel": 1,
+          "viewLevel": 2,
           "controlAggregation": "pages"
         }
       }
     },
     "rootView": {
-      "viewName": "project1.view.View1",
+      "viewName": "project1.view.Home",
       "type": "XML",
       "async": true,
       "id": "App"

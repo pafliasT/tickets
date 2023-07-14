@@ -88,7 +88,7 @@ sap.ui.define(
           // Set the data for the template
           doc.setData({
             Name: data.CustName,
-            FlConn: `KL${data.FlightNum}`,
+            FlConn: `${data.TickNum.substring(0, 2)}${data.FlightNum}`,
             FlightDate: this.formatDate(data.FlightDate),
             Boarding: "17:35",
             Gate: "A8",
